@@ -4,6 +4,8 @@ module Yasminaai
   module Policies
     module Types
       class PostPoliciesRequest < Internal::Types::Model
+        field :otp, -> { String }, optional: false, nullable: false
+
         field :quote_request_id, -> { Integer }, optional: false, nullable: false
 
         field :quote_reference_id, -> { String }, optional: false, nullable: false

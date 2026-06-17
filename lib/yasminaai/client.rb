@@ -9,8 +9,9 @@ module Yasminaai
     # @return [void]
     def initialize(token:, base_url: nil, max_retries: 2)
       @raw_client = Yasminaai::Internal::Http::RawClient.new(
-        base_url: base_url || Yasminaai::Environment::DEFAULT,
+        base_url: base_url || Yasminaai::Environment::SANDBOX,
         headers: {
+          "User-Agent" => "yasmina-motor-ruby/0.0.24",
           "X-Fern-Language" => "Ruby",
           Authorization: "Bearer #{token}"
         },
