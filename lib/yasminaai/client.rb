@@ -11,7 +11,7 @@ module Yasminaai
       @raw_client = Yasminaai::Internal::Http::RawClient.new(
         base_url: base_url || Yasminaai::Environment::SANDBOX,
         headers: {
-          "User-Agent" => "yasmina-motor-ruby/0.0.85",
+          "User-Agent" => "yasmina-motor-ruby/0.0.86",
           "X-Fern-Language" => "Ruby",
           Authorization: "Bearer #{token}"
         },
