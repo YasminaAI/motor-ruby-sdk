@@ -1,5 +1,5 @@
 # frozen_string_literal: true
 
 module Yasminaai
-  VERSION = "0.0.6"
+  VERSION = "0.0.61"
 end
