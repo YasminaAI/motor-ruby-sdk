@@ -1,6 +1,6 @@
 # Yasminaai Ruby Library
 
-[![fern shield](https://img.shields.io/badge/%F0%9F%8C%BF-Built%20with%20Fern-brightgreen)](https://buildwithfern.com?utm_source=github&utm_medium=github&utm_campaign=readme&utm_source=https%3A%2F%2Fgithub.com%2FYasminaAI%2Fmotor-ruby-sdk)
+[![fern shield](https://img.shields.io/badge/%F0%9F%8C%BF-Built%20with%20Fern-brightgreen)](https://buildwithfern.com?utm_source=github&utm_medium=github&utm_campaign=readme&utm_source=https%3A%2F%2Fgithub.com%2Fyasminaai%2Fmotor-ruby-sdk)
 
 The Yasminaai Ruby library provides convenient access to the Yasminaai APIs from Ruby.
 
@@ -19,7 +19,7 @@ The Yasminaai Ruby library provides convenient access to the Yasminaai APIs from
 
 ## Reference
 
-A full reference for this library is available [here](https://github.com/YasminaAI/motor-ruby-sdk/blob/HEAD/./reference.md).
+A full reference for this library is available [here](https://github.com/yasminaai/motor-ruby-sdk/blob/HEAD/./reference.md).
 
 ## Usage
 
