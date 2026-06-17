@@ -11,6 +11,8 @@ module Yasminaai
 
       field :car_sequence_number, -> { Integer }, optional: true, nullable: false
 
+      field :custom_number, -> { String }, optional: true, nullable: false
+
       field :is_ownership_transfer, -> { Internal::Types::Boolean }, optional: true, nullable: false
 
       field :car_estimated_cost, -> { Integer }, optional: true, nullable: false

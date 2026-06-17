@@ -63,8 +63,11 @@ module Yasminaai
       # @option params [Integer, nil] :min_price
       # @option params [Integer, nil] :max_price
       # @option params [Integer, nil] :per_page
+      # @option params [String, nil] :date_from
+      # @option params [String, nil] :date_to
+      # @option params [Boolean, nil] :include_aggregates
       #
-      # @return [Array[Yasminaai::Types::Policy]]
+      # @return [Yasminaai::Types::PaginatedPolicyResponse]
       def list_policies(request_options: {}, **params)
         params = Yasminaai::Internal::Types::Utils.normalize_keys(params)
         query_params = {}
@@ -78,6 +81,9 @@ module Yasminaai
         query_params["min_price"] = params[:min_price] if params.key?(:min_price)
         query_params["max_price"] = params[:max_price] if params.key?(:max_price)
         query_params["per_page"] = params[:per_page] if params.key?(:per_page)
+        query_params["date_from"] = params[:date_from] if params.key?(:date_from)
+        query_params["date_to"] = params[:date_to] if params.key?(:date_to)
+        query_params["include_aggregates"] = params[:include_aggregates] if params.key?(:include_aggregates)
 
         request = Yasminaai::Internal::JSON::Request.new(
           base_url: request_options[:base_url],
@@ -92,10 +98,12 @@ module Yasminaai
           raise Yasminaai::Errors::TimeoutError
         end
         code = response.code.to_i
-        return if code.between?(200, 299)
-
-        error_class = Yasminaai::Errors::ResponseError.subclass_for_code(code)
-        raise error_class.new(response.body, code: code)
+        if code.between?(200, 299)
+          Yasminaai::Types::PaginatedPolicyResponse.load(response.body)
+        else
+          error_class = Yasminaai::Errors::ResponseError.subclass_for_code(code)
+          raise error_class.new(response.body, code: code)
+        end
       end
 
       # For issuing a new policy

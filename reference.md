@@ -96,7 +96,7 @@ client.quotes.delete_quote(id: 1)
 </dl>
 </details>
 
-<details><summary><code>client.quotes.<a href="/lib/yasminaai/quotes/client.rb">list_quotes</a>() -> Yasminaai::Quotes::Types::GetQuoteRequestsResponse</code></summary>
+<details><summary><code>client.quotes.<a href="/lib/yasminaai/quotes/client.rb">list_quotes</a>() -> Yasminaai::Types::PaginatedQuoteResponse</code></summary>
 <dl>
 <dd>
 
@@ -109,7 +109,12 @@ client.quotes.delete_quote(id: 1)
 <dd>
 
 ```ruby
-client.quotes.list_quotes
+client.quotes.list_quotes(
+  date_from: "2026-06-01",
+  date_to: "2026-06-30",
+  per_page: 10,
+  include_aggregates: true
+)
 ```
 </dd>
 </dl>
@@ -120,6 +125,38 @@ client.quotes.list_quotes
 
 <dl>
 <dd>
+
+<dl>
+<dd>
+
+**date_from:** `String` — Inclusive lower bound for quote request creation date.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**date_to:** `String` — Inclusive upper bound for quote request creation date.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**per_page:** `Integer` — Number of quote requests to return per page.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_aggregates:** `Internal::Types::Boolean` — When true, includes quote request totals and monthly buckets for the filtered result set.
+    
+</dd>
+</dl>
 
 <dl>
 <dd>
@@ -165,10 +202,10 @@ The Quote IDs can be used later to issue a policy
 
 ```ruby
 client.quotes.request_quotes(
+  otp: "123456",
   owner_id: "owner_id",
   phone: "phone",
   birthdate: "2023-01-15",
-  car_sequence_number: "car_sequence_number",
   car_estimated_cost: 1.1
 )
 ```
@@ -181,6 +218,22 @@ client.quotes.request_quotes(
 
 <dl>
 <dd>
+
+<dl>
+<dd>
+
+**accept_language:** `Yasminaai::Quotes::Types::PostQuoteRequestsRequestAcceptLanguage` — Set to ar to receive Arabic-localized quote content.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**otp:** `String` — The OTP received by the customer from the Request OTP API
+    
+</dd>
+</dl>
 
 <dl>
 <dd>
@@ -218,6 +271,14 @@ client.quotes.request_quotes(
 <dd>
 
 **car_sequence_number:** `String` — Car sequence number must be 8 or 9 digits
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**custom_number:** `String` — Custom car number between 1000000 and 9999999999 (for newly imported cars)
     
 </dd>
 </dl>
@@ -348,7 +409,7 @@ client.policies.show_policy(car_policy: 1)
 </dl>
 </details>
 
-<details><summary><code>client.policies.<a href="/lib/yasminaai/policies/client.rb">list_policies</a>() -> Internal::Types::Array[Yasminaai::Types::Policy]</code></summary>
+<details><summary><code>client.policies.<a href="/lib/yasminaai/policies/client.rb">list_policies</a>() -> Yasminaai::Types::PaginatedPolicyResponse</code></summary>
 <dl>
 <dd>
 
@@ -375,7 +436,11 @@ Listing requested policies
 <dd>
 
 ```ruby
-client.policies.list_policies
+client.policies.list_policies(
+  date_from: "2026-06-01",
+  date_to: "2026-06-30",
+  include_aggregates: true
+)
 ```
 </dd>
 </dl>
@@ -470,6 +535,30 @@ client.policies.list_policies
 <dl>
 <dd>
 
+**date_from:** `String` — Inclusive lower bound for the policy date. For issued policies (`status=1`), this filters by `uploaded_at` (the provider policy issue timestamp) and falls back to `created_at` when `uploaded_at` is unavailable. For other statuses, this filters by `created_at`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**date_to:** `String` — Inclusive upper bound for the policy date. For issued policies (`status=1`), this filters by `uploaded_at` (the provider policy issue timestamp) and falls back to `created_at` when `uploaded_at` is unavailable. For other statuses, this filters by `created_at`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_aggregates:** `Internal::Types::Boolean` — When true, includes policy totals, total price, and monthly buckets for the filtered result set.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `Yasminaai::Policies::RequestOptions` 
     
 </dd>
@@ -510,6 +599,7 @@ For issuing a new policy
 
 ```ruby
 client.policies.issue_policy(
+  otp: "123456",
   quote_request_id: 123,
   quote_reference_id: "550e8400-e29b-41d4-a716-446655440000",
   quote_price_id: "550e8400-e29b-41d4-a716-446655440001"
@@ -524,6 +614,14 @@ client.policies.issue_policy(
 
 <dl>
 <dd>
+
+<dl>
+<dd>
+
+**otp:** `String` — The OTP received by the customer from the Issue OTP API
+    
+</dd>
+</dl>
 
 <dl>
 <dd>

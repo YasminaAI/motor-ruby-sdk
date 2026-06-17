@@ -9,6 +9,8 @@ module Yasminaai
 
       field :name, -> { String }, optional: true, nullable: false
 
+      field :name_ar, -> { String }, optional: true, nullable: false
+
       field :amount, -> { Integer }, optional: true, nullable: false
 
       field :vat, -> { Integer }, optional: true, nullable: false

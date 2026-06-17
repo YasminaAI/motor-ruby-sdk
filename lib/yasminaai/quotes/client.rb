@@ -75,19 +75,31 @@ module Yasminaai
       end
 
       # @param request_options [Hash]
-      # @param _params [Hash]
+      # @param params [Hash]
       # @option request_options [String] :base_url
       # @option request_options [Hash{String => Object}] :additional_headers
       # @option request_options [Hash{String => Object}] :additional_query_parameters
       # @option request_options [Hash{String => Object}] :additional_body_parameters
       # @option request_options [Integer] :timeout_in_seconds
+      # @option params [String, nil] :date_from
+      # @option params [String, nil] :date_to
+      # @option params [Integer, nil] :per_page
+      # @option params [Boolean, nil] :include_aggregates
       #
-      # @return [Yasminaai::Quotes::Types::GetQuoteRequestsResponse]
-      def list_quotes(request_options: {}, **_params)
+      # @return [Yasminaai::Types::PaginatedQuoteResponse]
+      def list_quotes(request_options: {}, **params)
+        params = Yasminaai::Internal::Types::Utils.normalize_keys(params)
+        query_params = {}
+        query_params["date_from"] = params[:date_from] if params.key?(:date_from)
+        query_params["date_to"] = params[:date_to] if params.key?(:date_to)
+        query_params["per_page"] = params[:per_page] if params.key?(:per_page)
+        query_params["include_aggregates"] = params[:include_aggregates] if params.key?(:include_aggregates)
+
         request = Yasminaai::Internal::JSON::Request.new(
           base_url: request_options[:base_url],
           method: "GET",
           path: "quote-requests",
+          query: query_params,
           request_options: request_options
         )
         begin
@@ -97,7 +109,7 @@ module Yasminaai
         end
         code = response.code.to_i
         if code.between?(200, 299)
-          Yasminaai::Quotes::Types::GetQuoteRequestsResponse.load(response.body)
+          Yasminaai::Types::PaginatedQuoteResponse.load(response.body)
         else
           error_class = Yasminaai::Errors::ResponseError.subclass_for_code(code)
           raise error_class.new(response.body, code: code)
@@ -114,15 +126,24 @@ module Yasminaai
       # @option request_options [Hash{String => Object}] :additional_query_parameters
       # @option request_options [Hash{String => Object}] :additional_body_parameters
       # @option request_options [Integer] :timeout_in_seconds
+      # @option params [Yasminaai::Quotes::Types::PostQuoteRequestsRequestAcceptLanguage, nil] :accept_language
       #
       # @return [Yasminaai::Types::QuoteResponse]
       def request_quotes(request_options: {}, **params)
         params = Yasminaai::Internal::Types::Utils.normalize_keys(params)
+        request_data = Yasminaai::Quotes::Types::PostQuoteRequestsRequest.new(params).to_h
+        non_body_param_names = %w[Accept-Language]
+        body = request_data.except(*non_body_param_names)
+
+        headers = {}
+        headers["Accept-Language"] = params[:accept_language] if params[:accept_language]
+
         request = Yasminaai::Internal::JSON::Request.new(
           base_url: request_options[:base_url],
           method: "POST",
           path: "quote-requests",
-          body: Yasminaai::Quotes::Types::PostQuoteRequestsRequest.new(params).to_h,
+          headers: headers,
+          body: body,
           request_options: request_options
         )
         begin

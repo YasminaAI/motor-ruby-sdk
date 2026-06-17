@@ -23,6 +23,8 @@ module Yasminaai
 
       field :created_at, -> { String }, optional: true, nullable: false
 
+      field :uploaded_at, -> { String }, optional: true, nullable: false
+
       field :updated_at, -> { String }, optional: true, nullable: false
 
       field :client_id, -> { String }, optional: true, nullable: false

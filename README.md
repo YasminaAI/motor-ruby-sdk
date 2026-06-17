@@ -31,10 +31,10 @@ require "yasminaai"
 client = Yasminaai::Client.new(token: "<token>")
 
 client.quotes.request_quotes(
+  otp: "123456",
   owner_id: "owner_id",
   phone: "phone",
   birthdate: "2023-01-15",
-  car_sequence_number: "car_sequence_number",
   car_estimated_cost: 1.1
 )
 ```
@@ -47,7 +47,7 @@ This SDK allows you to configure different environments or custom URLs for API r
 require "yasminaai"
 
 yasminaai = Yasminaai::Client.new(
-    base_url: Yasminaai::Environment::DEFAULT
+    base_url: Yasminaai::Environment::SANDBOX
 )
 ```
 
